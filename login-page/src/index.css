@@ -1,0 +1,107 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  scroll-behavior: smooth;
+  background-color: #ffffff;
+}
+
+
+:root {
+  --primary-color: #004a7c;
+  --secondary-color: #0077b6;
+  --accent-color: #ffb703;
+  --light-bg: #f4f4f4;
+  --dark-bg: #002a45;
+  --text-color: #333;
+}
+
+/* ====== Scrollbar Style ====== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--secondary-color);
+}
+
+/* ====== Global Headings & Text ====== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-color);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* ====== Links ====== */
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--accent-color);
+}
+
+/* ====== Buttons ====== */
+button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ====== Utility Classes ====== */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.pt-40 { padding-top: 40px; }
+.pb-40 { padding-bottom: 40px; }
+
+/* ====== Animations ====== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.fade-in-delay {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* ====== Responsive Layout ====== */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  .container { width: 95%; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  p { font-size: 0.95rem; }
+}
