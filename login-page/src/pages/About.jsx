@@ -6,7 +6,7 @@ export default function About() {
     <div className="about-container">
       <h2>About Us</h2>
       <p>
-        At <strong>InsurePro</strong>, we believe in securing the things that matter most.  
+        At <strong>InsureAI</strong>, we believe in securing the things that matter most.  
         Founded in 2025, we offer transparent, reliable insurance solutions across life,
         health, and property sectors.
       </p>
