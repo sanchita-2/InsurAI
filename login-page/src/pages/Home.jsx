@@ -83,8 +83,8 @@ export default function Home() {
         <h2>What Our Clients Say</h2>
         <div className="testimonial-grid">
           <div className="testimonial fade-card">
-            <p>“InsurePro made it super easy to find affordable life insurance. Great service!”</p>
-            <h4>- Rajesh Kumar</h4>
+            <p>“InsureAI made it super easy to find affordable life insurance. Great service!”</p>
+            <h4>- Sanchita </h4>
           </div>
           <div className="testimonial fade-card">
             <p>“Quick, reliable and transparent. I trust them for all my family’s policies.”</p>
