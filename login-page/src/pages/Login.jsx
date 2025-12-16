@@ -1,25 +1,57 @@
 import { useState } from "react";
 import "./Form.css";
+import axios from "axios";
 
-export default function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    alert(`User Login: ${form.email}`);
+    try {
+      const res = await axios.post("http://localhost:8080/api/users/login", {
+        email,
+        password,
+      });
+
+      if (res.data === "Login Success") {
+        setMessage("✅ Login successful!");
+      } else {
+        setMessage("❌ Invalid credentials");
+      }
+    } catch (err) {
+      console.error(err);
+      setMessage("⚠️ Error connecting to server");
+    }
   };
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <h2>User Login</h2>
-        <input type="email" placeholder="Email" required
-          onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <input type="password" placeholder="Password" required
-          onChange={(e) => setForm({ ...form, password: e.target.value })} />
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
         <button type="submit">Login</button>
-        <p>Don't have an account? <a href="/register">Register</a></p>
       </form>
+      <p>{message}</p>
     </div>
   );
 }
+
+export default Login;
+

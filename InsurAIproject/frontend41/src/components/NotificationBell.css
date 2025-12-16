@@ -1,0 +1,8 @@
+.notif-wrap{position:relative}
+.notif-btn{background:transparent;border:none;color:white;font-size:1.05rem;cursor:pointer;position:relative}
+.notif-count{background:var(--accent);color:#123;padding:2px 7px;border-radius:999px;margin-left:6px;font-weight:700}
+.notif-pop{position:absolute;right:0;top:36px;width:320px;background:white;color:#0f172a;border-radius:10px;box-shadow:0 12px 30px rgba(2,6,23,0.2);padding:12px;z-index:40}
+.notif-pop h4{margin:0 0 8px 0}
+.note{padding:8px;border-bottom:1px solid #eef2f7}
+.note.seen{opacity:0.6}
+.empty{color:var(--muted);padding:8px}

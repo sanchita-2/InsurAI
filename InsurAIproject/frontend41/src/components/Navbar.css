@@ -1,0 +1,12 @@
+.navbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;background:linear-gradient(90deg,#123678,#1f3a93);color:white;
+  box-shadow:0 6px 20px rgba(15,23,42,0.08)
+}
+.brand{font-weight:700;font-size:1.25rem;color:white;text-decoration:none}
+.nav-links{display:flex;gap:18px}
+.nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-username{color:rgba(255,255,255,0.9);font-weight:600}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.12);color:white;padding:6px 10px;border-radius:8px}

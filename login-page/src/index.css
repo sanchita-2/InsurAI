@@ -105,3 +105,58 @@ button {
   h2 { font-size: 1.3rem; }
   p { font-size: 0.95rem; }
 }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f8fa;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  width: 350px;
+  margin: 80px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fcc;
+}
+
+p {
+  text-align: center;
+  margin-top: 10px;
+}

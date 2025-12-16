@@ -1,0 +1,90 @@
+.appointment-container {
+  padding: 20px;
+}
+
+.title {
+  font-size: 26px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+}
+
+.empty {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.appointment-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 18px;
+}
+
+.appointment-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+.appointment-card:hover {
+  transform: translateY(-5px);
+}
+
+.status {
+  font-weight: bold;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.status.pending {
+  color: #e67e22;
+}
+
+.status.approved {
+  color: #27ae60;
+}
+
+.status.rejected {
+  color: #c0392b;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.approve {
+  padding: 8px 14px;
+  background: #27ae60;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reject {
+  padding: 8px 14px;
+  background: #c0392b;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.approve:hover {
+  background: #219150;
+}
+
+.reject:hover {
+  background: #a83226;
+}
