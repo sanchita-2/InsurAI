@@ -4,12 +4,12 @@ import { getUserNotifications, markNotificationSeen, markAllUserSeen } from "../
 export default function UserNotifications({ userId }) {
   const [notifications, setNotifications] = useState([]);
 
-  
+  // Load notifications on mount and every 20s
   useEffect(() => {
     if (!userId) return;
 
     loadNotifications();
-    const interval = setInterval(loadNotifications, 20000); 
+    const interval = setInterval(loadNotifications, 20000); // auto-refresh 20s
     return () => clearInterval(interval);
   }, [userId]);
 

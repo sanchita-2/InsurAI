@@ -1,61 +1,59 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { loginUser } from "../api";
-import { useNavigate } from "react-router-dom";
-import '../global.css';
-import Navbar from "../components/Navbar";
+import { saveAuth } from "../auth";
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/auth.css";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
-  const submit = async (e) => {
+  async function submit(e) {
     e.preventDefault();
     setError("");
 
     try {
-      const res = await loginUser({ email, password });
+      const data = await loginUser({ email, password });
+      saveAuth(data);
 
-      // Backend returns: { token, user }
-      const { token, user } = res;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      if (user.role === "ADMIN") navigate("/admin/dashboard");
-      else if (user.role === "AGENT") navigate("/agent/dashboard");
-      else navigate("/user/dashboard");
-    } catch (err) {
-      console.error(err);
-      setError("Invalid login credentials");
+      if (data.user.role === "ADMIN") nav("/admin/dashboard");
+      else if (data.user.role === "AGENT") nav("/agent/dashboard");
+      else nav("/user/dashboard");
+    } catch {
+      setError("Invalid email or password");
     }
-  };
+  }
 
   return (
-    <div className="form-container">
-      <h2>Login</h2>
+    <div className="auth-page">
+      <form className="auth-card" onSubmit={submit}>
+        <h2>Login</h2>
 
-      {error && <p className="error">{error}</p>}
+        {error && <p className="auth-error">{error}</p>}
 
-      <form onSubmit={submit}>
-        <label>Email</label>
         <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
 
-        <label>Password</label>
         <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           required
         />
 
         <button type="submit">Login</button>
+
+        <p className="auth-footer">
+          No account? <Link to="/register">Register</Link>
+        </p>
       </form>
     </div>
   );

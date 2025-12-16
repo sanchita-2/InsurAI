@@ -1,10 +1,67 @@
+/* Sidebar container */
 .sidebar {
   width: 240px;
-  background: #1a237e;
-  color: white;
-  height: 100vh;
-  padding-top: 30px;
-  position: fixed;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  padding: 20px 16px;
+  box-sizing: border-box;
+  color: #e5e7eb;
+}
+
+/* Title */
+.sidebar-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #38bdf8;
+  text-align: center;
+}
+
+/* Links */
+.sidebar-link {
+  display: block;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #cbd5f5;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.sidebar-link:hover {
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+/* Active route (NavLink auto class) */
+.sidebar-link.active {
+  background-color: #38bdf8;
+  color: #020617;
+  font-weight: 600;
+}
+
+/* Mobile support */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    overflow-x: auto;
+  }
+
+  .sidebar-title {
+    display: none;
+  }
+
+  .sidebar-link {
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
 }
 
 .sidebar h3 {

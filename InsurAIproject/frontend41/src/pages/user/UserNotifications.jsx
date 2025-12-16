@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarUser from "../../components/SidebarUser";
-import Navbar from "../../components/Navbar";
+
 import { getCurrentUser } from "../../auth";
 import { getUserNotifications, markNotificationSeen } from "../../api";
 
@@ -20,7 +20,7 @@ export default function UserNotifications() {
 
   return (
     <div>
-      <Navbar />
+      
       <div className="layout">
         <SidebarUser />
         <main className="content">

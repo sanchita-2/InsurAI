@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
+
 import SidebarAdmin from "../../components/SidebarAdmin";
 import "../../global.css";
-import { adminGetUsers, adminGetAgents, adminGetAppointments } from "../../api";
+
+import {
+  adminGetUsers,
+  adminGetAgents,
+  adminGetAppointments
+} from "../../api";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -11,14 +16,18 @@ export default function AdminDashboard() {
     approvedAgents: 0,
     appointments: 0
   });
-
-  useEffect(() => {
-    async function load() {
+useEffect(() => {
+  async function load() {
+    try {
       const [users, agents, apps] = await Promise.all([
         adminGetUsers(),
         adminGetAgents(),
         adminGetAppointments()
       ]);
+
+      console.log("USERS:", users);
+      console.log("AGENTS:", agents);
+      console.log("APPS:", apps);
 
       setStats({
         users: users.length,
@@ -26,15 +35,19 @@ export default function AdminDashboard() {
         approvedAgents: agents.filter(a => a.approved === 1).length,
         appointments: apps.length
       });
+    } catch (err) {
+      console.error("Dashboard load failed:", err);
     }
-    load();
-  }, []);
+  }
+  load();
+}, []);
+
 
   return (
     <>
-      <Navbar />
+      
       <div className="layout">
-        <SidebarAdmin />
+        
 
         <main className="content">
         

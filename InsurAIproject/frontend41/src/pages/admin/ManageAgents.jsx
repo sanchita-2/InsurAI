@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarAdmin from "../../components/SidebarAdmin";
-import Navbar from "../../components/Navbar";
+
 import { adminGetAgents, adminApproveAgent } from "../../api";
 
 export default function ManageAgents() {
@@ -21,7 +21,7 @@ export default function ManageAgents() {
 
   return (
     <div>
-      <Navbar />
+      
       <div className="layout">
         <SidebarAdmin />
         <main className="content">

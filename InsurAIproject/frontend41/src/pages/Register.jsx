@@ -1,8 +1,8 @@
-// src/pages/Register.jsx
 import React, { useState } from "react";
 import { registerUser } from "../api";
-import { useNavigate } from "react-router-dom";
-import '../global.css';
+import { useNavigate, Link } from "react-router-dom";
+import "../styles/auth.css";
+
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,59 +11,62 @@ export default function Register() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const submit = async (e) => {
+  async function submit(e) {
     e.preventDefault();
     setError("");
 
     try {
       const res = await registerUser({ name, email, password, role });
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
 
-      const { token, user } = res;
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      if (user.role === "AGENT") navigate("/agent/dashboard");
+      if (res.user.role === "AGENT") navigate("/agent/dashboard");
       else navigate("/user/dashboard");
-    } catch (err) {
-      console.error(err);
-      setError("Failed to register user");
+    } catch {
+      setError("Registration failed");
     }
-  };
+  }
 
   return (
-    <div className="form-container">
-      <h2>Register</h2>
+    <div className="auth-page">
+      <form className="auth-card" onSubmit={submit}>
+        <h2>Register</h2>
 
-      {error && <p className="error">{error}</p>}
+        {error && <p className="auth-error">{error}</p>}
 
-      <form onSubmit={submit}>
-        <label>Name</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} required />
-
-        <label>Email</label>
         <input
-          value={email}
+          placeholder="Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+
+        <input
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
 
-        <label>Password</label>
         <input
-          value={password}
           type="password"
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           required
         />
 
-        <label>Role</label>
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
+        <select value={role} onChange={e => setRole(e.target.value)}>
           <option value="USER">User</option>
           <option value="AGENT">Agent</option>
         </select>
 
-        <button type="submit">Register</button>
+        <button type="submit">Create Account</button>
+
+        <p className="auth-footer">
+          Already registered? <Link to="/login">Login</Link>
+        </p>
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SidebarUser from "../../components/SidebarUser";
-import Navbar from "../../components/Navbar";
+
 import { getCurrentUser } from "../../auth";
 import { getMyAppointments } from "../../api";
 
@@ -12,7 +12,7 @@ export default function UserAppointments() {
 
   return (
     <div>
-      <Navbar />
+    
       <div className="layout">
         <SidebarUser />
         <main className="content">

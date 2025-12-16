@@ -1,13 +1,13 @@
 import Navbar from "../components/Navbar";
-import SidebarUser from "../components/SidebarUser";
+import SidebarAdmin from "../components/SidebarAdmin";
 import { Outlet } from "react-router-dom";
 
-export default function UserLayout() {
+export default function AdminLayout() {
   return (
     <>
       <Navbar />
       <div className="layout">
-        <SidebarUser />
+        <SidebarAdmin />
         <main className="content">
           <Outlet />
         </main>

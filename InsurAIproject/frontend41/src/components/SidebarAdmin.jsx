@@ -21,6 +21,10 @@ export default function SidebarAdmin() {
         <Link className={loc.pathname === "/admin/appointments" ? "active" : ""} to="/admin/appointments">
           Appointments
         </Link>
+        <Link to="/admin/purchased-policies" className="sidebar-link">
+  Purchased Policies
+</Link>
+         <Link to="/admin/policies">Policies</Link>
       </nav>
     </aside>
   );

@@ -1,15 +1,32 @@
-import { Link, useLocation } from "react-router-dom";
-import "../global.css";
+// src/components/UserSidebar.jsx
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "../styles/sidebar.css";
 
-export default function SidebarUser() {
-  const loc = useLocation();
-
+export default function UserSidebar() {
   return (
-    <aside className="sidebar">
-      <h3>User</h3>
-      <Link className={loc.pathname.includes("dashboard") ? "active" : ""} to="/user/dashboard">Dashboard</Link>
-      <Link className={loc.pathname.includes("appointments") ? "active" : ""} to="/user/appointments">Appointments</Link>
-      <Link className={loc.pathname.includes("notifications") ? "active" : ""} to="/user/notifications">Notifications</Link>
-    </aside>
+    <div className="sidebar">
+      <h2 className="sidebar-title">User Panel</h2>
+
+      <NavLink to="/user/dashboard" className="sidebar-link">
+        Dashboard
+      </NavLink>
+
+      <NavLink to="/user/appointments" className="sidebar-link">
+        Appointments
+      </NavLink>
+<NavLink to="/user/buy-policies" className="sidebar-link">
+  Buy Policies
+</NavLink>
+
+<NavLink to="/user/policies" className="sidebar-link">
+  My Policies
+</NavLink>
+
+
+      <NavLink to="/user/notifications" className="sidebar-link">
+        Notifications
+      </NavLink>
+    </div>
   );
 }

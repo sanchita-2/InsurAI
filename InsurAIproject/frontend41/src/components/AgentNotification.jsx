@@ -4,12 +4,12 @@ import { getAgentNotifications, markNotificationSeen, markAllAgentSeen } from ".
 export default function AgentNotifications({ agentId }) {
   const [notifications, setNotifications] = useState([]);
 
-  
+  // Load notifications on mount and every 20s
   useEffect(() => {
     if (!agentId) return;
 
     loadNotifications();
-    const interval = setInterval(loadNotifications, 20000); 
+    const interval = setInterval(loadNotifications, 20000); // auto-refresh 20s
     return () => clearInterval(interval);
   }, [agentId]);
 

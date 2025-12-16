@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
+
 import { adminGetUsers } from "../../api";
 import SidebarAdmin from "../../components/SidebarAdmin.jsx";
 export default function ManageUsers(){
@@ -12,7 +12,7 @@ export default function ManageUsers(){
 
   return (
     <>
-      <Navbar />
+      
       <div className="container">
         <h2>Manage Users</h2>
         <div className="card">

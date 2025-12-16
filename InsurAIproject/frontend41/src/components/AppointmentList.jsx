@@ -3,7 +3,11 @@ import { apiGet, apiPut } from "../api";
 import "./AppointmentList.css";
 
 export default function AppointmentList({ mode, id }) {
- 
+  /**
+   mode = "USER" → fetch /user/appointments/{id}
+   mode = "AGENT" → fetch /agent/appointments/{id}
+   mode = "ADMIN" → fetch /admin/appointments
+  */
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 

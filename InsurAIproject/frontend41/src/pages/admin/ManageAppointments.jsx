@@ -1,14 +1,14 @@
 
 import React, { useEffect, useState } from "react";
 import { adminGetAppointments } from "../../api";
-import Navbar from "../../components/Navbar";
+
 import SidebarAdmin from "../../components/SidebarAdmin";
 export default function ManageAppointments(){
   const [apps,setApps] = useState([]);
   useEffect(()=>{ (async ()=>{ setApps(await adminGetAppointments()); })(); }, []);
   return (
     <>
-      <Navbar />
+      
       <div className="container">
         <h2>All Appointments</h2>
         <div className="card">
