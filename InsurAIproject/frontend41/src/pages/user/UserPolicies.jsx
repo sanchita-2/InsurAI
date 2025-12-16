@@ -5,11 +5,11 @@ import {
   cancelUserPolicy,
   renewUserPolicy
 } from "../../api";
-
+import { getCurrentUser } from "../../auth";
 export default function UserPolicies() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id;
 
+const loggedUser = getCurrentUser();
+const userId = loggedUser?.id;
   const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../api";
+import { saveAuth } from "../auth";
 import { useNavigate, Link } from "react-router-dom";
 import "../styles/auth.css";
 
@@ -16,11 +17,11 @@ export default function Register() {
     setError("");
 
     try {
-      const res = await registerUser({ name, email, password, role });
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("user", JSON.stringify(res.user));
+      const data = await registerUser({ name, email, password, role });
+      saveAuth(data);
 
-      if (res.user.role === "AGENT") navigate("/agent/dashboard");
+      // ✅ Redirect after register
+      if (data.user.role === "AGENT") navigate("/agent/dashboard");
       else navigate("/user/dashboard");
     } catch {
       setError("Registration failed");
@@ -29,13 +30,20 @@ export default function Register() {
 
   return (
     <div className="auth-page">
+      {/* ===== Top Navigation ===== */}
+      <div className="auth-top">
+        <Link to="/" className="back-link">← Back to Home</Link>
+      </div>
+
       <form className="auth-card" onSubmit={submit}>
-        <h2>Register</h2>
+        {/* ===== Branding ===== */}
+        <h1 className="brand-title">InsureAI</h1>
+        <p className="brand-subtitle">Create your account</p>
 
         {error && <p className="auth-error">{error}</p>}
 
         <input
-          placeholder="Name"
+          placeholder="Full Name"
           value={name}
           onChange={e => setName(e.target.value)}
           required
@@ -43,7 +51,7 @@ export default function Register() {
 
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email address"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
@@ -65,7 +73,7 @@ export default function Register() {
         <button type="submit">Create Account</button>
 
         <p className="auth-footer">
-          Already registered? <Link to="/login">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </form>
     </div>

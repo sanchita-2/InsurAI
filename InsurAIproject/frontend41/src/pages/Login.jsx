@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   async function submit(e) {
     e.preventDefault();
@@ -18,9 +18,10 @@ export default function Login() {
       const data = await loginUser({ email, password });
       saveAuth(data);
 
-      if (data.user.role === "ADMIN") nav("/admin/dashboard");
-      else if (data.user.role === "AGENT") nav("/agent/dashboard");
-      else nav("/user/dashboard");
+      // ✅ Role-based redirect (PRO way)
+      if (data.user.role === "ADMIN") navigate("/admin/dashboard");
+      else if (data.user.role === "AGENT") navigate("/agent/dashboard");
+      else navigate("/user/dashboard");
     } catch {
       setError("Invalid email or password");
     }
@@ -28,14 +29,21 @@ export default function Login() {
 
   return (
     <div className="auth-page">
+      {/* ===== Top Navigation ===== */}
+      <div className="auth-top">
+        <Link to="/" className="back-link">← Back to Home</Link>
+      </div>
+
       <form className="auth-card" onSubmit={submit}>
-        <h2>Login</h2>
+        
+        <h1 className="brand-title">InsureAI</h1>
+        <p className="brand-subtitle">Login to your account</p>
 
         {error && <p className="auth-error">{error}</p>}
 
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email address"
           value={email}
           onChange={e => setEmail(e.target.value)}
           required
@@ -52,7 +60,7 @@ export default function Login() {
         <button type="submit">Login</button>
 
         <p className="auth-footer">
-          No account? <Link to="/register">Register</Link>
+          Don’t have an account? <Link to="/register">Create one</Link>
         </p>
       </form>
     </div>

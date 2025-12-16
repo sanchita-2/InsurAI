@@ -1,16 +1,17 @@
-// src/pages/user/BuyPolicies.jsx
+
 import React, { useEffect, useState } from "react";
 import { getPolicies, buyPolicy, getUserPolicies } from "../../api";
 import "../../styles/home.css"
+import { getCurrentUser } from "../../auth";
 export default function BuyPolicies() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const userId = user?.id;
+ const loggedUser = getCurrentUser();
+const userId = loggedUser?.id;
 
   const [policies, setPolicies] = useState([]);
   const [myPolicies, setMyPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* ================= LOAD DATA ================= */
+ 
   useEffect(() => {
     async function load() {
       try {
@@ -30,18 +31,18 @@ export default function BuyPolicies() {
     load();
   }, [userId]);
 
-  /* ================= CHECK IF PURCHASED ================= */
+  
   function isPurchased(policyId) {
     return myPolicies.some(p => p.policyId === policyId);
   }
 
-  /* ================= BUY ================= */
+  
   async function handleBuy(policyId) {
     try {
       await buyPolicy(userId, policyId);
       alert("Policy purchased successfully!");
 
-      // refresh purchased list
+   
       const updated = await getUserPolicies(userId);
       setMyPolicies(updated);
     } catch (err) {

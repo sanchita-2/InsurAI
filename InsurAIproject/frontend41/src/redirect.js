@@ -1,4 +1,4 @@
-export function getDashboardPath(role) {
+export function getDashboardRoute(role) {
   switch (role) {
     case "ADMIN":
       return "/admin/dashboard";

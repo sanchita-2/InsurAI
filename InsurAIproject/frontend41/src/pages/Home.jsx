@@ -4,7 +4,7 @@ import "./Home.css";
 import heroImg from "./hero.jpg";
 import { getPolicies, buyPolicy, getUserPolicies } from "../api";
 import { getCurrentUser } from "../auth";
-import { getDashboardPath } from "../redirectToDashboard";
+import { getDashboardRoute } from "../redirect";
 export default function Home() {
   const [policies, setPolicies] = useState([]);
   const [purchasedPolicyIds, setPurchasedPolicyIds] = useState([]);
@@ -19,7 +19,7 @@ export default function Home() {
     }
   }, []);
 
-  /* ================= LOAD ALL POLICIES ================= */
+  
   async function loadPolicies() {
     try {
       const data = await getPolicies();
@@ -79,11 +79,11 @@ export default function Home() {
               </>
             ) : (
               <button
-                className="btn-primary"
-                onClick={() => navigate("/user/dashboard")}
-              >
-                Go to Dashboard
-              </button>
+  className="btn-primary"
+  onClick={() => navigate(getDashboardRoute(user.role))}
+>
+  Go to Dashboard
+</button>
             )}
           </div>
         </div>

@@ -7,6 +7,7 @@ import Register from "./pages/Register.jsx";
 
 import AdminLayout from "./layouts/AdminLayout.jsx";
 import UserLayout from "./layouts/UserLayout.jsx";
+import ChatAIWidget from "./components/ChatAIWidget";
 
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import ManageAgents from "./pages/admin/ManageAgents.jsx";
@@ -31,6 +32,7 @@ import PublicRoute from "./components/PublicRoute.jsx";
 export default function App() {
   return (
     <BrowserRouter>
+    <ChatAIWidget />
       <Routes>
 
         {/* PUBLIC */}

@@ -1,4 +1,3 @@
-// src/pages/user/UserDashboard.jsx
 import React, { useEffect, useState } from "react";
 import {
   getMyAppointments,
@@ -8,9 +7,11 @@ import {
   renewUserPolicy
 } from "../../api";
 import AppointmentForm from "../../components/AppointmentForm";
+import { getCurrentUser } from "../../auth";
+import "./UserDashboard.css";
 
 export default function UserDashboard() {
-  const loggedUser = JSON.parse(localStorage.getItem("user"));
+  const loggedUser = getCurrentUser();
   const userId = loggedUser?.id;
 
   const [appointments, setAppointments] = useState([]);
@@ -28,7 +29,6 @@ export default function UserDashboard() {
       setError("User not logged in");
       return;
     }
-
     fetchAppointments();
     fetchNotifications();
     fetchPolicies();
@@ -36,7 +36,6 @@ export default function UserDashboard() {
 
   const fetchAppointments = async () => {
     try {
-      setLoadingAppointments(true);
       const data = await getMyAppointments(userId);
       setAppointments(data);
     } catch {
@@ -48,7 +47,6 @@ export default function UserDashboard() {
 
   const fetchNotifications = async () => {
     try {
-      setLoadingNotifications(true);
       const data = await getUserNotifications(userId);
       setNotifications(data);
     } catch {
@@ -60,7 +58,6 @@ export default function UserDashboard() {
 
   const fetchPolicies = async () => {
     try {
-      setLoadingPolicies(true);
       const data = await getUserPolicies(userId);
       setPolicies(data);
     } catch {
@@ -82,83 +79,103 @@ export default function UserDashboard() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Welcome, {loggedUser?.name}</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="dashboard">
+      <h1 className="dashboard-title">Welcome, {loggedUser?.name}</h1>
+      {error && <p className="error">{error}</p>}
 
-      {/* ================= APPOINTMENTS ================= */}
-      <h2>Book Appointment</h2>
-      <AppointmentForm userId={userId} />
+      {/* APPOINTMENTS */}
+      <section className="card">
+        <h2>Book Appointment</h2>
+        <AppointmentForm userId={userId} />
+      </section>
 
-      <h2>Your Appointments</h2>
-      {loadingAppointments ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {appointments.map(a => (
-            <li key={a.id}>
-              {a.agentName} | {new Date(a.appointmentTime).toLocaleString()} | {a.status}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* ================= POLICIES ================= */}
-      <h2>My Policies</h2>
-
-      {loadingPolicies ? (
-        <p>Loading policies...</p>
-      ) : policies.length === 0 ? (
-        <p>No policies purchased yet</p>
-      ) : (
-        <table border="1" cellPadding="8">
-          <thead>
-            <tr>
-              <th>Policy</th>
-              <th>Premium</th>
-              <th>Status</th>
-              <th>Purchased</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {policies.map(p => (
-              <tr key={p.id}>
-                <td>{p.policyTitle}</td>
-                <td>₹{p.premium}</td>
-                <td>{p.status}</td>
-                <td>{new Date(p.purchasedAt).toLocaleDateString()}</td>
-                <td>
-                  {p.status === "ACTIVE" && (
-                    <button onClick={() => handleCancel(p.id)}>
-                      Cancel
-                    </button>
-                  )}
-                  {p.status === "CANCELLED" && (
-                    <button onClick={() => handleRenew(p.id)}>
-                      Renew
-                    </button>
-                  )}
-                </td>
-              </tr>
+      <section className="card">
+        <h2>Your Appointments</h2>
+        {loadingAppointments ? (
+          <p>Loading...</p>
+        ) : appointments.length === 0 ? (
+          <p className="muted">No appointments found</p>
+        ) : (
+          <ul className="list">
+            {appointments.map(a => (
+              <li key={a.id}>
+                <strong>{a.agentName}</strong> —{" "}
+                {new Date(a.appointmentTime).toLocaleString()} |{" "}
+                <span className={`status ${a.status.toLowerCase()}`}>
+                  {a.status}
+                </span>
+              </li>
             ))}
-          </tbody>
-        </table>
-      )}
+          </ul>
+        )}
+      </section>
 
-      {/* ================= NOTIFICATIONS ================= */}
-      <h2>Notifications</h2>
-      {loadingNotifications ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {notifications.map(n => (
-            <li key={n.id}>
-              <strong>{n.title}</strong>: {n.body}
-            </li>
-          ))}
-        </ul>
-      )}
+      {/* POLICIES */}
+      <section className="card">
+        <h2>My Policies</h2>
+
+        {loadingPolicies ? (
+          <p>Loading policies...</p>
+        ) : policies.length === 0 ? (
+          <p className="muted">No policies purchased yet</p>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Policy</th>
+                <th>Premium</th>
+                <th>Status</th>
+                <th>Purchased</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {policies.map(p => (
+                <tr key={p.id}>
+                  <td>{p.policyTitle}</td>
+                  <td>₹{p.premium}</td>
+                  <td>
+                    <span className={`badge ${p.status.toLowerCase()}`}>
+                      {p.status}
+                    </span>
+                  </td>
+                  <td>{new Date(p.purchasedAt).toLocaleDateString()}</td>
+                  <td>
+                    {p.status === "ACTIVE" && (
+                      <button className="btn danger" onClick={() => handleCancel(p.id)}>
+                        Cancel
+                      </button>
+                    )}
+                    {p.status === "CANCELLED" && (
+                      <button className="btn success" onClick={() => handleRenew(p.id)}>
+                        Renew
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      {/* NOTIFICATIONS */}
+      <section className="card">
+        <h2>Notifications</h2>
+        {loadingNotifications ? (
+          <p>Loading...</p>
+        ) : notifications.length === 0 ? (
+          <p className="muted">No notifications</p>
+        ) : (
+          <ul className="list">
+            {notifications.map(n => (
+              <li key={n.id}>
+                <strong>{n.title}</strong> — {n.body}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }
