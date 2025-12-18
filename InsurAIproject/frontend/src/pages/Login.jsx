@@ -18,7 +18,7 @@ export default function Login() {
       const data = await loginUser({ email, password });
       saveAuth(data);
 
-      // ✅ Role-based redirect (PRO way)
+  
       if (data.user.role === "ADMIN") navigate("/admin/dashboard");
       else if (data.user.role === "AGENT") navigate("/agent/dashboard");
       else navigate("/user/dashboard");

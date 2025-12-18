@@ -20,7 +20,7 @@ export default function Register() {
       const data = await registerUser({ name, email, password, role });
       saveAuth(data);
 
-      // ✅ Redirect after register
+      
       if (data.user.role === "AGENT") navigate("/agent/dashboard");
       else navigate("/user/dashboard");
     } catch {
@@ -30,13 +30,13 @@ export default function Register() {
 
   return (
     <div className="auth-page">
-      {/* ===== Top Navigation ===== */}
+   
       <div className="auth-top">
         <Link to="/" className="back-link">← Back to Home</Link>
       </div>
 
       <form className="auth-card" onSubmit={submit}>
-        {/* ===== Branding ===== */}
+        
         <h1 className="brand-title">InsureAI</h1>
         <p className="brand-subtitle">Create your account</p>
 

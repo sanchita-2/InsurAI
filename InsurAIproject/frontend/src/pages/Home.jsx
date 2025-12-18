@@ -29,7 +29,7 @@ export default function Home() {
     }
   }
 
-  /* ================= LOAD USER PURCHASED POLICIES ================= */
+  
   async function loadUserPolicies() {
     try {
       const data = await getUserPolicies(user.id);
@@ -40,7 +40,7 @@ export default function Home() {
     }
   }
 
-  /* ================= BUY POLICY ================= */
+  /*  BUY POLICY  */
   async function handleBuy(policyId) {
     if (!user) {
       navigate("/login");
@@ -50,7 +50,7 @@ export default function Home() {
     try {
       await buyPolicy(user.id, policyId);
       alert("Policy purchased successfully");
-      loadUserPolicies(); // refresh state
+      loadUserPolicies(); 
     } catch (err) {
       console.error(err);
       alert("Failed to purchase policy");
@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <div className="home">
 
-      {/* ================= HERO SECTION ================= */}
+      {/*  HERO SECTION */}
       <section className="hero">
         <div className="hero-content">
           <h1>
@@ -93,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= POLICIES SECTION ================= */}
+      {/*  POLICIES SECTION */}
       <section className="policies">
         <h2>Our Insurance Policies</h2>
         <p className="subtitle">
@@ -127,7 +127,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= WHY US ================= */}
+      {/* WHY US  */}
       <section className="why-us">
         <h2>Why Choose InsureAI?</h2>
 
@@ -154,7 +154,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
+      
       <section className="cta">
         <h2>Ready to Protect What Matters Most?</h2>
         <p>Join thousands of users who trust InsureAI.</p>
@@ -163,7 +163,7 @@ export default function Home() {
         </Link>
       </section>
 
-      {/* ================= FOOTER ================= */}
+      {}
       <footer className="footer">
         <div className="footer-content">
           <h3>InsureAI</h3>
