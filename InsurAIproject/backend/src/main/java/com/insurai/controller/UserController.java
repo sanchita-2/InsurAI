@@ -1,1 +1,26 @@
-package com.insurai.controller; import com.insurai.dto.AppointmentDto; import com.insurai.dto.UserDto; import com.insurai.service.AppointmentService; import com.insurai.service.PolicyService; import com.insurai.service.UserService; import org.springframework.http.ResponseEntity; import org.springframework.web.bind.annotation.*; import java.util.List; @RestController @RequestMapping("/api/users") @CrossOrigin(origins = "*") public class UserController { private final UserService userService; private final AppointmentService appointmentService; private final PolicyService policyService; public UserController(UserService userService, AppointmentService appointmentService, PolicyService policyService){ this.userService=userService; this.appointmentService=appointmentService; this.policyService=policyService; } @GetMapping("/agents") public ResponseEntity<List<UserDto>> getApprovedAgents(){ return ResponseEntity.ok(userService.getApprovedAgents()); } @PostMapping("/appointments") public ResponseEntity<AppointmentDto> createAppointment(@RequestBody AppointmentDto dto){ return ResponseEntity.ok(appointmentService.createAppointment(dto)); } @GetMapping("/appointments/{userId}") public ResponseEntity<List<AppointmentDto>> getAppointmentsByUser(@PathVariable Long userId){ return ResponseEntity.ok(appointmentService.getAppointmentsByUser(userId)); } @GetMapping("/policies") public ResponseEntity<?> getPolicies(){ return ResponseEntity.ok(policyService.all()); } }
+package com.insurai.controller;
+ import com.insurai.dto.AppointmentDto;
+  import com.insurai.dto.UserDto;
+   import com.insurai.service.AppointmentService;
+    import com.insurai.service.PolicyService; 
+    import com.insurai.service.UserService;
+     import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*; 
+ import java.util.List; 
+ @RestController
+  @RequestMapping("/api/users") 
+  @CrossOrigin(origins = "*") 
+  public class UserController {
+     private final UserService userService; 
+     private final AppointmentService appointmentService; 
+     private final PolicyService policyService;
+      public UserController(UserService userService, AppointmentService appointmentService, PolicyService policyService){ this.userService=userService;
+         this.appointmentService=appointmentService;
+          this.policyService=policyService;
+         } @GetMapping("/agents")
+          public ResponseEntity<List<UserDto>> getApprovedAgents(){ return ResponseEntity.ok(userService.getApprovedAgents()); }
+           @PostMapping("/appointments")
+            public ResponseEntity<AppointmentDto> createAppointment(@RequestBody AppointmentDto dto){ return ResponseEntity.ok(appointmentService.createAppointment(dto)); 
+
+            } @GetMapping("/appointments/{userId}") 
+            public ResponseEntity<List<AppointmentDto>> getAppointmentsByUser(@PathVariable Long userId){ return ResponseEntity.ok(appointmentService.getAppointmentsByUser(userId)); } @GetMapping("/policies") public ResponseEntity<?> getPolicies(){ return ResponseEntity.ok(policyService.all()); } }

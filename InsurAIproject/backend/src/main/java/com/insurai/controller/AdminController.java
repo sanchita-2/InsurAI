@@ -10,7 +10,7 @@ package com.insurai.controller;
 
          }
           @GetMapping("/agents") public ResponseEntity<List<UserDto>> getAgents(){ return ResponseEntity.ok(userService.getAllAgents()); } 
-          @PutMapping("/approve/{id}") public ResponseEntity<?> approveAgent(@PathVariable Long id){ try{ return ResponseEntity.ok(userService.approveAgent(id,1));
+          @PutMapping("/agents/{id}/approve") public ResponseEntity<?> approveAgent(@PathVariable Long id){ try{ return ResponseEntity.ok(userService.approveAgent(id,1));
 
            }catch(RuntimeException e){ return ResponseEntity.badRequest().body(e.getMessage()); }
          } @GetMapping("/users") public ResponseEntity<List<UserDto>> getUsers(){ return ResponseEntity.ok(userService.getAllUsers()); 

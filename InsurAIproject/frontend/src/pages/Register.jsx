@@ -18,25 +18,38 @@ export default function Register() {
 
     try {
       const data = await registerUser({ name, email, password, role });
-      saveAuth(data);
+      if (data.user.role === "USER") {
+        saveAuth(data);
+        alert("Registration successful");
+        navigate("/user/dashboard");
+        return;
+      }
 
       
-      if (data.user.role === "AGENT") navigate("/agent/dashboard");
-      else navigate("/user/dashboard");
-    } catch {
-      setError("Registration failed");
+      if (data.user.role === "AGENT") {
+        navigate("/login", {
+          state: {
+            message: "Registration successful. Please wait for admin approval."
+          }
+        });
+        return;
+      }
+
+    } catch (err) {
+      setError(
+        err?.response?.data?.message || "Registration failed"
+      );
     }
   }
 
   return (
     <div className="auth-page">
-   
+
       <div className="auth-top">
         <Link to="/" className="back-link">← Back to Home</Link>
       </div>
 
       <form className="auth-card" onSubmit={submit}>
-        
         <h1 className="brand-title">InsureAI</h1>
         <p className="brand-subtitle">Create your account</p>
 

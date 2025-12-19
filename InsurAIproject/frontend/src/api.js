@@ -7,7 +7,7 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// Attach token automatically
+// Attach token 
 api.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
@@ -16,7 +16,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-/* ================= GENERIC HELPERS ================= */
 export const apiGet = async (path, params = {}) =>
   (await api.get(path, { params })).data;
 
@@ -44,7 +43,7 @@ export const adminGetAgents = () =>
   apiGet("/admin/agents");
 
 export const adminApproveAgent = (agentId, approved) =>
-  apiPut(`/admin/agents/${agentId}/approve`, { approved });
+  apiPut(`/admin/agents/${agentId}/approve`, );
 
 export const adminGetAppointments = () =>
   apiGet("/admin/appointments");

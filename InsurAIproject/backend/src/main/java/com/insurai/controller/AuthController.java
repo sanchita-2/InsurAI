@@ -1,3 +1,28 @@
-package com.insurai.controller; import com.insurai.entity.User; import com.insurai.service.AuthService; import org.springframework.http.ResponseEntity; import org.springframework.web.bind.annotation.*; 
+package com.insurai.controller; 
+import com.insurai.entity.User;
+ import com.insurai.service.AuthService; 
+ import org.springframework.http.ResponseEntity;
+  import org.springframework.web.bind.annotation.*; 
 @RestController @RequestMapping("/api/auth")
- @CrossOrigin(origins = "*") public class AuthController { private final AuthService service; public AuthController(AuthService service){ this.service=service; } @PostMapping("/register") public ResponseEntity<?> register(@RequestBody User u){ try{ return ResponseEntity.ok(service.register(u)); }catch(RuntimeException e){ return ResponseEntity.badRequest().body(java.util.Map.of("status","error","message",e.getMessage())); } } @PostMapping("/login") public ResponseEntity<?> login(@RequestBody LoginRequest req){ try{ var r=service.login(req.getEmail(), req.getPassword()); return ResponseEntity.ok(java.util.Map.of("token", r.getToken(), "user", r.getUser())); } catch(RuntimeException e){ return ResponseEntity.badRequest().body(java.util.Map.of("status","error","message",e.getMessage())); } } public static class LoginRequest{ private String email; private String password; public String getEmail(){return email;} public void setEmail(String email){this.email=email;} public String getPassword(){return password;} public void setPassword(String password){this.password=password;} } }
+ @CrossOrigin(origins = "*") 
+ public class AuthController { private final AuthService service; public AuthController(AuthService service)
+    { this.service=service;
+
+  }
+  @PostMapping("/register") 
+  public ResponseEntity<?> register(@RequestBody User u){ try{ return ResponseEntity.ok(service.register(u)); }catch(RuntimeException e){ return ResponseEntity.badRequest().body(java.util.Map.of("status","error","message",e.getMessage()));
+
+   } }
+    @PostMapping("/login")
+     public ResponseEntity<?> login
+     (
+        @RequestBody LoginRequest req)
+        { try{ var r=service.login(req.getEmail(), req.getPassword()); return ResponseEntity.ok(java.util.Map.of("token", r.getToken(), "user", r.getUser())); 
+
+     } catch(RuntimeException e){ return ResponseEntity.badRequest().body(java.util.Map.of("status","error","message",e.getMessage())); } } public static class LoginRequest{ private String email; private String password; public String getEmail(){return email;} public void setEmail(String email){this.email=email;
+
+     } public String getPassword(){return password;
+
+     }
+      public void setPassword(String password)
+      {this.password=password;} } }
